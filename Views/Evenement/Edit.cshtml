@@ -1,0 +1,50 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model GestionEvenements.Models.Evenement
+@{
+    ViewData["Title"] = "Modifier un événement";
+}
+
+<h2>Modifier un événement</h2>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="Id" type="hidden" />
+
+    <div class="mb-3">
+        <label asp-for="Titre" class="form-label"></label>
+        <input asp-for="Titre" class="form-control" />
+        <span asp-validation-for="Titre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Lieu" class="form-label"></label>
+        <input asp-for="Lieu" class="form-control" />
+        <span asp-validation-for="Lieu" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="OrganisateurId" class="form-label"></label>
+        <select asp-for="OrganisateurId" class="form-select" asp-items="@(new SelectList(ViewBag.Organisateurs, "Id", "Nom"))">
+            <option value="">-- Choisissez --</option>
+        </select>
+        <span asp-validation-for="OrganisateurId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

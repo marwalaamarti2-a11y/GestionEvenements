@@ -1,0 +1,64 @@
+@model IEnumerable<GestionEvenements.Models.Evenement>
+
+@{
+    ViewData["Title"] = "Liste des Evenements";
+}
+
+<h2 class="text-center mb-4">
+    <i class="fa-solid fa-calendar"></i> Liste des Evenements
+</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn-add-event">
+    <i class="fa-solid fa-plus"></i> Ajouter un événement
+    </a>
+</div>
+
+<table class="table table-hover table-bordered shadow">
+
+    <thead class="table-primary text-center">
+
+        <tr>
+            <th><i class="fa-solid fa-heading"></i> Titre</th>
+            <th><i class="fa-solid fa-align-left"></i> Description</th>
+            <th><i class="fa-solid fa-calendar-day"></i> Date</th>
+            <th><i class="fa-solid fa-location-dot"></i> Lieu</th>
+            <th><i class="fa-solid fa-user"></i> Organisateur</th>
+            <th><i class="fa-solid fa-gear"></i> Actions</th>
+        </tr>
+
+    </thead>
+
+    <tbody class="text-center">
+
+@foreach (var item in Model)
+{
+        <tr>
+
+            <td>@item.Titre</td>
+            <td>@item.Description</td>
+            <td>@item.Date.ToShortDateString()</td>
+            <td>@item.Lieu</td>
+            <td>@item.Organisateur?.Nom</td>
+
+            <td>
+
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                </form>
+
+            </td>
+
+        </tr>
+}
+
+    </tbody>
+
+</table>

@@ -1,0 +1,48 @@
+@model IEnumerable<GestionEvenements.Models.Organisateur>
+@{
+    ViewData["Title"] = "Liste des Organisateurs";
+}
+
+<h2 class="text-center mb-4"><i class="fa-solid fa-users"></i> Liste des Organisateurs</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn-add-event">
+        <i class="fa-solid fa-plus"></i> Ajouter un Organisateur
+    </a>
+</div>
+
+<table class="table table-hover table-bordered shadow">
+    <thead class="table-primary text-center">
+        <tr>
+            <th><i class="fa-solid fa-hashtag"></i> ID</th>
+            <th><i class="fa-solid fa-user"></i> Nom</th>
+            <th><i class="fa-solid fa-envelope"></i> Email</th>
+            <th><i class="fa-solid fa-phone"></i> Téléphone</th>
+            <th><i class="fa-solid fa-gear"></i> Actions</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Nom</td>
+            <td>@item.Email</td>
+            <td>@item.Telephone</td>
+            <td>
+                <div class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-delete btn-sm" type="submit">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
